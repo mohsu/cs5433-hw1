@@ -1,0 +1,45 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "p1",
+      "type": "python",
+      "request": "launch",
+      "program": "hw1_p1.py",
+      "cwd": "${workspaceFolder}/p1",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "p1_verify",
+      "type": "python",
+      "request": "launch",
+      "program": "hw1_p1_verify_coin.py",
+      "cwd": "${workspaceFolder}/p1",
+      "args": ["coin.txt", "1011110111111100"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "p2",
+      "type": "python",
+      "request": "launch",
+      "program": "test.py",
+      "cwd": "${workspaceFolder}/p2",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "p3",
+      "type": "python",
+      "request": "launch",
+      "program": "test.py",
+      "cwd": "${workspaceFolder}/p3",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
