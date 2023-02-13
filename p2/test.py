@@ -8,6 +8,7 @@ from hashlib import sha256
 from math import log2, ceil
 from copy import deepcopy
 
+
 def test_basic(objects):
     _leaf_passed, _trivial_pi_passed = 0, 0
     try:
@@ -15,7 +16,7 @@ def test_basic(objects):
         p.build_merkle_tree(deepcopy(objects))
         n = len(objects)
         positive_indices = [random.randint(0, n-1) for x in range(4)]
-        positive_indices += [0,n-1]
+        positive_indices += [0, n-1]
         negative_indices = [random.randint(n, 2*n) for x in range(2)]
         negative_indices += [n]
         for i in positive_indices:
@@ -42,6 +43,7 @@ def test_basic(objects):
         pass
     return _leaf_passed, _trivial_pi_passed
 
+
 def test_verify(objects):
     _passed = 0
     try:
@@ -49,11 +51,11 @@ def test_verify(objects):
         c = p.build_merkle_tree(deepcopy(objects))
         n = len(objects)
         indices = [random.randint(0, n-1) for x in range(4)]
-        indices += [0,n-1]
+        indices += [0, n-1]
 
         for idx in indices:
             try:
-                pi = p.generate_proof(idx)        
+                pi = p.generate_proof(idx)
                 obj_hash = sha256(objects[idx].encode()).hexdigest()
                 if verify(objects[idx], pi, c) or verify(obj_hash, pi, c):
                     _passed += 1
@@ -63,5 +65,6 @@ def test_verify(objects):
         pass
     return _passed
 
+
 print(test_basic(['a']), "passed in (9, 3) cases")
-print(test_verify(['a']), " passed in 6 cases")
+print(test_verify(['a', 'b', 'c']), " passed in 6 cases")
