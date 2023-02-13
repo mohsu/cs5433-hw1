@@ -45,7 +45,12 @@ if __name__ == "__main__":
 Example:
 
 netid = "af535"
-w = bin(int(hashlib.sha256(netid.encode()).hexdigest(), base=16)).lstrip('0b').zfill(16)[:16]  # w = 1000011001111010
+watermark = bin(int(hashlib.sha256(netid.encode()).hexdigest(), base=16)).lstrip('0b').zfill(16)[:16]  # w = 1000011001111010
+watermark_hex = hex(int(watermark, 2)).lstrip('0x')  # 867a
 C =(867a95c2a8781d95, 867a79c683c4b9de, 867a18839dcbd23f, 867aee195b47b3d2)
+
 forged_netid = "qn00061"
+w_forged = bin(int(hashlib.sha256(forged_netid.encode()).hexdigest(), base=16)).lstrip('0b').zfill(16)[:16]
+f_watermark_hex = hex(int(w_forged, 2)).lstrip('0x')
+print(f_watermark_hex == watermark_hex)
 """
