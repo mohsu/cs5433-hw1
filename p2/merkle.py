@@ -13,8 +13,6 @@ def verify(obj: str, proof: str, commitment: str) -> bool:
     if proof:
         for s in proof.split(";"):
             index, sib_h = s.split(",")
-            if not sib_h:
-                continue
             if int(index) % 2 == 0:
                 h = H(h + sib_h)
             else:
@@ -42,7 +40,7 @@ class Prover:
                     node2 = nodes[i + 1]
                     new_node = H(node1 + node2)
                 else:
-                    new_node = node1
+                    new_node = H(node1 + node1)  # double if is odd
                 upper_nodes.append(new_node)
 
             self.tree.append(upper_nodes)
@@ -68,7 +66,7 @@ class Prover:
                 if index + 1 < len(self.tree[layer]):
                     proof.append(f"{index},{self.tree[layer][index + 1]}")
                 else:
-                    proof.append(f"{index},")
+                    proof.append(f"{index},{self.tree[layer][index]}")
             else:
                 proof.append(f"{index},{self.tree[layer][index - 1]}")
             layer += 1
