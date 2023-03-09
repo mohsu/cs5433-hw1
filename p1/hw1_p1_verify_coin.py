@@ -34,12 +34,21 @@ def verify_coin(coin_txt, watermark_hex):
 
 if __name__ == "__main__":
     coin_txt, watermark = sys.argv[1:]
-    watermark_hex = hex(int(watermark, 2)).lstrip('0x')
+    l = (len(watermark) + 3) // 4
+    watermark_hex = '{:0{}x}'.format(int(watermark, 2), l)
+    # watermark_hex = hex(int(watermark, 2)).lstrip('0x')
     print(watermark_hex)
     if verify_coin(coin_txt, watermark_hex):
         print("Your coin is valid!")
     else:
         print("Your coin is not valid!")
+    
+    forged_netid = "fl012679"
+    w_forged = bin(int(hashlib.sha256(forged_netid.encode()).hexdigest(), base=16)).lstrip('0b').zfill(256)[:16]
+    l = (len(w_forged) + 3) // 4
+    f_watermark_hex = '{:0{}x}'.format(int(w_forged, 2), l)
+    # f_watermark_hex = hex(int(w_forged, 2)).lstrip('0x')
+    print(f"Forged netid has watermark: {w_forged}, and is the same hex and original one:", f_watermark_hex == watermark_hex)
 
 """
 Example:
