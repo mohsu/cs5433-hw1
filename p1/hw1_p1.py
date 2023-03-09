@@ -12,8 +12,10 @@ N = 16 ** 8
 
 def get_watermark_hex(netid: str):
     watermark = bin(int(hashlib.sha256(netid.encode()).hexdigest(), base=16)).lstrip(
-        '0b').zfill(16)[:16]
-    watermark_hex = hex(int(watermark, 2)).lstrip('0x')
+        '0b').zfill(256)[:16]
+    l = (len(watermark) + 3) // 4
+    watermark_hex = '{:0{}x}'.format(int(watermark, 2), l)
+    # watermark_hex = hex(int(watermark, 2)).lstrip('0x')
     return watermark, watermark_hex
 
 
@@ -24,7 +26,7 @@ def hash_hex_value(c_i):
 
 
 def generate_coin(watermark_hex, i):
-    hex = watermark_hex + format(i, '06x')
+    hex = watermark_hex + format(i, '012x')
     hashed_hex = hash_hex_value(hex)
     return hex, hashed_hex
 
@@ -74,8 +76,8 @@ if __name__ == "__main__":
     watermark, watermark_hex = get_watermark_hex(
         netid)  # 1011110111111100, bdfc
 
-    # C = generate_k_coins(watermark_hex, k)
-    # print(C)  # ['bdfc1a2a6b', 'bdfc0a8735', 'bdfc25d389', 'bdfc07eb76']
+    C = generate_k_coins(watermark_hex, k)
+    print(C)  # ['bdfc0000001b280b', 'bdfc000000243882', 'bdfc000000524f50', 'bdfc00000022bba2']
 
-    f_nid = forge_nid(watermark_hex)
-    print(f_nid)  # ai34569
+    # f_nid = forge_nid(watermark_hex)
+    # print(f_nid)  # fl012679
